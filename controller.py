@@ -95,14 +95,27 @@ if __name__ == "__main__":
     modelpath = r"Data/" + modelname + "_model.pkl"
     encoderpath = r"Data/OnHotEncoder_" + modelname + ".pkl"
 
+    modelresultspath = r"Data/model_prediction.csv"
+    predfeaturepath = r"Data/pred_data_features.csv"
+    predscorecardpath = r"Data/pred_data_scorecard.csv"
+    predsummarypath = r"Data/pred_data_summary.csv"
+    nextmatchteampath = r"Data/pred_team11.csv"
+    matchdatapathipl20 = r"ipl20/matchdata_v2.csv"
+    matchdatascorecardpathipl20 = r"ipl20/matchdatascorecardpathipl20.csv"
+    predscorecardpath =r'ipl20/matchscorecard.csv'
 
+    matchsummarypathipl20 = r"ipl20/match_summary_ipl20.csv"
+    iplcurrentsquad = r"Data/ipl_squad_points.csv"
+    teampoints = r'Data/team_points.csv'
+    rewardspath =r'Data/rewards_df.csv'
+    yearlyrewardspath = r'Data/rewards_yearly_summary.csv'
 
 
     datapath = {'matchdatapath': matchdatapath,
                 'matchsummarypath': matchsummarypath,
                 'matchdatascorecardpath': matchdatascorecardpath,
                 'matchdatascorecardpathipl20': matchdatascorecardpathipl20,
-                "matchdatapathipl20": matchdatapathipl20,
+                "matchdatapathipl2": matchdatapathipl20,
                 "matchsummarypathipl20": matchsummarypathipl20,
                 'featenggpath': featenggpath,
                 'modelpath': modelpath,
@@ -119,20 +132,21 @@ if __name__ == "__main__":
                 'yearlrewardspath': yearlyrewardspath}
 
     #  to run the training of the models part of the permissible list
-    TRAIN_MODEL = True
+    TRAIN_MODEL = False
     # e to run the prediction on the entire training dataset we have
-    PREDICT_MODEL = False
+    PREDICT_MODEL = True
     #  to run the training for an ensemble model using predicitons from other model
-    PREDICT_ENSEMBLE = False
+    PREDICT_ENSEMBLE = True
     #  to create the dataframe of the upcoming match and adjust anything if required
-    SELECT_PLAYING_SQUAD = False
+    SELECT_PLAYING_SQUAD = True
     #  if the squad file is ready at predfeaturepath to run prediction for the team
-    SELECT_CURRENT_TEAM = False
+    SELECT_CURRENT_TEAM = True
     #  if the current playing XI is available
     SELECT_FROM_PLAYING_XI = False
 
     modelnamelist = ['xgb', 'catboost', 'rf', 'movingaverage']
     # function to train the model
+
     if TRAIN_MODEL:
         execute_get_scorecard( matchdatapath,datapath['matchdatascorecardpath'], pointsconfig)  # Run the function to to get points in the scorecard format
         execute_featureengg(datapath['matchdatascorecardpath'], datapath['matchsummarypath'], datapath['featenggpath'], colconfig)  # Run the function to create features
